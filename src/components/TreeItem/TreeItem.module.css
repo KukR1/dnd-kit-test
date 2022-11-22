@@ -3,51 +3,43 @@
   box-sizing: border-box;
   padding-left: var(--spacing);
   margin-bottom: -1px;
-
-  &.ghost {
-    &.indicator {
-      opacity: 1;
-      position: relative;
-      z-index: 1;
-      margin-bottom: -1px;
-
-      .TreeItem {
-        position: relative;
-        padding: 0;
-        height: 8px;
-        border-color: #2389ff;
-        background-color: #56a1f8;
-
-        &:before {
-          position: absolute;
-          left: -8px;
-          top: -4px;
-          display: block;
-          content: '';
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          border: 1px solid #2389ff;
-          background-color: #ffffff;
-        }
-
-        > * {
-          /* Items are hidden using height and opacity to retain focus */
-          opacity: 0;
-          height: 0;
-        }
-      }
-    }
-
-    &:not(.indicator) {
-      opacity: 0.5;
-    }
-
-    .TreeItem > * {
-      box-shadow: none;
-      background-color: transparent;
-    }
-  }
+}
+.Wrapper.ghost.indicator {
+  opacity: 1;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -1px;
+}
+.Wrapper.ghost.indicator .TreeItem {
+  position: relative;
+  padding: 0;
+  height: 8px;
+  border-color: #2389ff;
+  background-color: #56a1f8;
+}
+.Wrapper.ghost.indicator .TreeItem:before {
+  position: absolute;
+  left: -8px;
+  top: -4px;
+  display: block;
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #2389ff;
+  background-color: #fff;
+}
+.Wrapper.ghost.indicator .TreeItem > * {
+  /* Items are hidden using height and opacity to retain focus */
+  opacity: 0;
+  height: 0;
+}
+.Wrapper.ghost:not(.indicator) {
+  opacity: 0.5;
+}
+.Wrapper.ghost .TreeItem > * {
+  box-shadow: none;
+  background-color: transparent;
 }
 .clone {
   display: inline-block;
@@ -58,14 +50,12 @@
 }
 .TreeItem {
   --vertical-padding: 5px;
-
   padding-right: 24px;
   border-radius: 4px;
   box-shadow: 0px 15px 15px 0 rgba(34, 33, 81, 0.1);
 }
 .TreeItem {
   --vertical-padding: 10px;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -75,7 +65,6 @@
   color: #222;
   box-sizing: border-box;
 }
-
 .Text {
   flex-grow: 1;
   padding-left: 0.5rem;
@@ -83,7 +72,6 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
-
 .Count {
   position: absolute;
   top: -10px;
@@ -99,24 +87,21 @@
   font-weight: 600;
   color: #fff;
 }
-
 .disableInteraction {
   pointer-events: none;
 }
-
-.disableSelection,
-.clone {
-  .Text,
-  .Count {
-    user-select: none;
-    -webkit-user-select: none;
-  }
+.disableSelection .Text,
+.clone .Text,
+.disableSelection .Count,
+.clone .Count {
+  user-select: none;
+  -webkit-user-select: none;
 }
-
-svg {
+.Collapse svg {
+  transform: rotate(0deg);
+  transition: transform 250ms ease;
 }
-
-.Collapse .collapsed svg {
+.collapsed svg {
   transform: rotate(-90deg);
   transition: transform 250ms ease;
 }

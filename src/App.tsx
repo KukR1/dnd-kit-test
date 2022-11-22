@@ -217,7 +217,7 @@ export function App({
             indicator={indicator}
             collapsed={Boolean(collapsed && children.length)}
             onCollapse={
-              collapsible && children.length
+              children.length
                 ? () => {
                     handleCollapse(id);
                   }
