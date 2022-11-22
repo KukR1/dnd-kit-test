@@ -71,6 +71,56 @@ const initialItems: TreeItems = [
   },
 ];
 
+const prefferedItems = [
+  /* Want to achieve to work with data like that...
+Keep in mind that dashboards cannot be folders such as parent or children, only draggable here and there..*/
+  {
+    id: 1,
+    title: 'Diomedea irrorata',
+    dashboards: [
+      {
+        id: 1,
+        title: 'Cervus canadensis',
+      },
+    ],
+    children: [
+      {
+        id: 2,
+        title: 'Ciconia episcopus',
+        dashboards: [
+          {
+            id: 2,
+            title: 'Grus antigone',
+          },
+        ],
+        children: [],
+      },
+      {
+        id: 3,
+        title: 'Lama Glama',
+        dashboards: [
+          {
+            id: 3,
+            title: 'Eubalaena australis',
+          },
+        ],
+        children: [
+          {
+            id: 4,
+            title: 'Zalophus californicus',
+            dashboards: [
+              {
+                id: 4,
+                title: 'Papilio canadensis',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+];
+
 const measuring = {
   droppable: {
     strategy: MeasuringStrategy.Always,
