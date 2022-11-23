@@ -217,8 +217,6 @@ export function removeChildrenOf(
       }
       return false;
     }
-
-    console.log('im here?');
     return true;
   });
 }

@@ -305,7 +305,7 @@ export function App({
                     handleCollapse(id);
                   }
                 : undefined */ console.log(
-                'Just removed it to see the UI of it'
+                'Just removed it to see the UI of it, cuz it throws error'
               )
             }
             onRemove={removable ? () => handleRemove(id) : undefined}
