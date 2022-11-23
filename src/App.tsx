@@ -73,13 +73,13 @@ const initialItems: TreeItems = [
 
 const prefferedItems = [
   /* Want to achieve to work with data like that...
-Keep in mind that dashboards cannot be folders such as parent or children, only draggable here and there..*/
+Keep in mind that dashboards cannot be folders such as its parent or children, only draggable here and there..*/
   {
     id: 1,
     title: 'Diomedea irrorata',
     dashboards: [
       {
-        id: 1,
+        id: 1 /* Dashboards seems to have same id with it's parent */,
         title: 'Cervus canadensis',
       },
     ],
@@ -89,7 +89,7 @@ Keep in mind that dashboards cannot be folders such as parent or children, only 
         title: 'Ciconia episcopus',
         dashboards: [
           {
-            id: 2,
+            id: 2 /* Dashboards seems to have same id with it's parent */,
             title: 'Grus antigone',
           },
         ],
@@ -300,11 +300,13 @@ export function App({
             indicator={indicator}
             collapsed={Boolean(collapsed && children.length)}
             onCollapse={
-              children.length
+              /*  children.length
                 ? () => {
                     handleCollapse(id);
                   }
-                : undefined
+                : undefined */ console.log(
+                'Just removed it to see the UI of it'
+              )
             }
             onRemove={removable ? () => handleRemove(id) : undefined}
           />
