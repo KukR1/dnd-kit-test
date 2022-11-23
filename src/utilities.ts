@@ -79,15 +79,27 @@ function getMinDepth({ nextItem }: { nextItem: FlattenedItem }) {
 function flatten(
   items: TreeItems,
   parentId: UniqueIdentifier | null = null,
-  depth = 0
+  depth = 0,
+  flattenedItems: FlattenedItem[] = []
 ): FlattenedItem[] {
-  return items.reduce<FlattenedItem[]>((acc, item, index) => {
-    return [
-      ...acc,
-      { ...item, parentId, depth, index },
-      ...flatten(item.children, item.id, depth + 1),
-    ];
-  }, []);
+  for (let index = 0; index < items.length; index++) {
+    flattenedItems.push({ ...items[index], parentId, depth, index })
+    if (items[index].children) {
+      flatten(items[index].children, items[index].id, depth + 1, flattenedItems)
+    }
+    if (items[index].dashboards) {
+      flatten(items[index].dashboards, items[index].id, depth + 1, flattenedItems)
+    }
+  }
+  return flattenedItems;
+  // return items.reduce<FlattenedItem[]>((acc, item, index) => {
+  //   return [
+  //     ...acc,
+  //     { ...item, parentId, depth, index },
+  //     ...flatten(item.children, item.id, depth + 1),
+  //     ...flatten(item.dashboards, item.id, depth + 1)
+  //   ];
+  // }, []);
 }
 
 export function flattenTree(items: TreeItems): FlattenedItem[] {

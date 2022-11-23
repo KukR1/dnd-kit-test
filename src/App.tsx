@@ -192,7 +192,7 @@ interface Props {
 
 export function App({
   collapsible,
-  defaultItems = initialItems,
+  defaultItems = prefferedItems,
   indicator = false,
   indentationWidth = 50,
   removable,
@@ -205,9 +205,10 @@ export function App({
     parentId: UniqueIdentifier | null;
     overId: UniqueIdentifier;
   } | null>(null);
-  console.log(items);
   const flattenedItems = useMemo(() => {
     const flattenedTree = flattenTree(items);
+    console.log(flattenedTree);
+
     const collapsedItems = flattenedTree.reduce<string[]>(
       (acc, { children, collapsed, id }) =>
         collapsed && children.length ? [...acc, id] : acc,

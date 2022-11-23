@@ -5,7 +5,7 @@ export interface TreeItem {
   id: UniqueIdentifier;
   children: TreeItem[];
   collapsed?: boolean;
-  dashboards?: DashboardType[];
+  dashboards: TreeItem[];
 }
 
 export type DashboardType = {
