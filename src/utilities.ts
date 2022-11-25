@@ -80,26 +80,21 @@ function flatten(
   items: TreeItems,
   parentId: UniqueIdentifier | null = null,
   depth = 0,
-  flattenedItems: FlattenedItem[] = []
 ): FlattenedItem[] {
-  for (let index = 0; index < items.length; index++) {
-    flattenedItems.push({ ...items[index], parentId, depth, index })
-    if (items[index].children) {
-      flatten(items[index].children, items[index].id, depth + 1, flattenedItems)
-    }
-    if (items[index].dashboards) {
-      flatten(items[index].dashboards, items[index].id, depth + 1, flattenedItems)
-    }
-  }
-  return flattenedItems;
-  // return items.reduce<FlattenedItem[]>((acc, item, index) => {
-  //   return [
-  //     ...acc,
-  //     { ...item, parentId, depth, index },
-  //     ...flatten(item.children, item.id, depth + 1),
-  //     ...flatten(item.dashboards, item.id, depth + 1)
-  //   ];
-  // }, []);
+
+  return items.reduce<FlattenedItem[]>((acc, item, index) => {
+    const dashboards =
+      (item.dashboards && flatten(item.dashboards, item.id, depth + 1)) || [];
+    const children =
+      (item.children && flatten(item.children, item.id, depth + 1)) || [];
+
+    return [
+      ...acc,
+      { ...item, parentId, depth, index },
+      ...dashboards,
+      ...children,
+    ];
+  }, []);
 }
 
 export function flattenTree(items: TreeItems): FlattenedItem[] {
@@ -107,17 +102,17 @@ export function flattenTree(items: TreeItems): FlattenedItem[] {
 }
 
 export function buildTree(flattenedItems: FlattenedItem[]): TreeItems {
-  const root: TreeItem = { id: 'root', children: [] };
+  const root: TreeItem = { id: 'root', children: [], dashboards: [] };
   const nodes: Record<string, TreeItem> = { [root.id]: root };
-  const items = flattenedItems.map((item) => ({ ...item, children: [] }));
+  const items = flattenedItems.map((item) => ({ ...item, children: [], dashboards: [] }));
 
   for (const item of items) {
-    const { id, children } = item;
+    const { id, children, dashboards } = item;
     const parentId = item.parentId ?? root.id;
     const parent = nodes[parentId] ?? findItem(items, parentId);
 
-    nodes[id] = { id, children };
-    parent.children.push(item);
+    nodes[id] = { id, children, dashboards };
+    parent?.children?.push(item);
   }
 
   return root.children;
@@ -132,17 +127,24 @@ export function findItemDeep(
   itemId: UniqueIdentifier
 ): TreeItem | undefined {
   for (const item of items) {
-    const { id, children } = item;
+    const { id, children, dashboards } = item;
 
     if (id === itemId) {
       return item;
     }
 
-    if (children.length) {
+    if (children?.length) {
       const child = findItemDeep(children, itemId);
 
       if (child) {
         return child;
+      }
+    }
+    if (dashboards?.length) {
+      const dash = findItemDeep(dashboards, itemId);
+
+      if (dash) {
+        return dash;
       }
     }
   }
@@ -180,7 +182,7 @@ export function setProperty<T extends keyof TreeItem>(
       continue;
     }
 
-    if (item.children.length) {
+    if (item?.children?.length) {
       item.children = setProperty(item.children, id, property, setter);
     }
   }
@@ -190,7 +192,7 @@ export function setProperty<T extends keyof TreeItem>(
 
 function countChildren(items: TreeItem[], count = 0): number {
   return items.reduce((acc, { children }) => {
-    if (children.length) {
+    if (children?.length) {
       return countChildren(children, acc + 1);
     }
 
@@ -201,7 +203,7 @@ function countChildren(items: TreeItem[], count = 0): number {
 export function getChildCount(items: TreeItems, id: UniqueIdentifier) {
   const item = findItemDeep(items, id);
 
-  return item ? countChildren(item.children) : 0;
+  return item ? countChildren(item?.children) : 0;
 }
 
 export function removeChildrenOf(
@@ -212,7 +214,7 @@ export function removeChildrenOf(
 
   return items.filter((item) => {
     if (item.parentId && excludeParentIds.includes(item.parentId)) {
-      if (item.children.length) {
+      if (item.children && item.children.length) {
         excludeParentIds.push(item.id);
       }
       return false;

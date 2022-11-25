@@ -40,57 +40,42 @@ import { sortableTreeKeyboardCoordinates } from './keyboardCoordinates';
 import { SortableTreeItem } from './components';
 import { CSS } from '@dnd-kit/utilities';
 
-const initialItems: TreeItems = [
-  {
-    id: 'Home',
-    children: [
-      {
-        id: 'Spring',
-        children: [],
-      },
-      { id: 'Summer', children: [] },
-    ],
-  },
-  {
-    id: 'Collections',
-    children: [
-      { id: 'Fall', children: [] },
-      { id: 'Winter', children: [] },
-    ],
-  },
-  {
-    id: 'About Us',
-    children: [],
-  },
-  {
-    id: 'My Account',
-    children: [
-      { id: 'Addresses', children: [] },
-      { id: 'Order History', children: [] },
-    ],
-  },
-];
-
 const prefferedItems = [
   /* Want to achieve to work with data like that...
 Keep in mind that dashboards cannot be folders such as its parent or children, only draggable here and there..*/
   {
     id: 1,
     title: 'Diomedea irrorata',
+    is_header: true,
+    parent_id: null,
+    parent_index: 11,
+    visible: true,
     dashboards: [
       {
-        id: 1 /* Dashboards seems to have same id with it's parent */,
+        id: 1,
         title: 'Cervus canadensis',
+        name: 'Cervus canadensis',
+        divider_id: 1,
+        divider_index: 62,
+        visible: true,
       },
     ],
     children: [
       {
         id: 2,
         title: 'Ciconia episcopus',
+        is_header: false,
+        parent_id: 1,
+        parent_index: 2,
+        visible: true,
         dashboards: [
           {
-            id: 2 /* Dashboards seems to have same id with it's parent */,
+            id: 2,
             title: 'Grus antigone',
+            name: 'Grus antigone',
+            divider_id: 2,
+            divider_index: 78,
+            visible: true,
           },
         ],
         children: [],
@@ -98,58 +83,434 @@ Keep in mind that dashboards cannot be folders such as its parent or children, o
       {
         id: 3,
         title: 'Lama Glama',
+        is_header: false,
+        parent_id: 1,
+        parent_index: 3,
+        visible: true,
         dashboards: [
           {
             id: 3,
             title: 'Eubalaena australis',
+            name: 'Eubalaena australis',
+            divider_id: 3,
+            divider_index: 73,
+            visible: true,
           },
         ],
         children: [
           {
             id: 4,
             title: 'Zalophus californicus',
+            is_header: false,
+            parent_id: 3,
+            parent_index: 4,
+            visible: true,
             dashboards: [
               {
                 id: 4,
                 title: 'Papilio canadensis',
+                name: 'Papilio canadensis',
+                divider_id: 4,
+                divider_index: 1,
+                visible: true,
               },
             ],
           },
         ],
       },
-    ],
-  },
-  {
-    id: 98,
-    title: 'Hersa Leoko',
-    dashboards: [
       {
-        id: 98,
-        title: 'Cervus dreas',
+        id: 27,
+        title: 'New Category',
+        is_header: false,
+        parent_id: 1,
+        parent_index: 9,
+        visible: true,
+        dashboards: [
+          {
+            id: 18,
+            title: 'New Page Test',
+            name: 'New Page Test',
+            divider_id: 27,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
       },
     ],
   },
   {
-    id: 67,
-    title: 'Lopes Mear',
+    id: 6,
+    title: 'Junonia genoveua',
+    is_header: true,
+    parent_id: null,
+    parent_index: 16,
+    visible: true,
     dashboards: [
       {
-        id: 67,
-        title: 'Yuos Verzo',
+        id: 6,
+        title: 'Sula dactylatra',
+        name: 'Sula sulina',
+        divider_id: 6,
+        divider_index: 48,
+        visible: true,
       },
     ],
     children: [
       {
-        id: 23,
-        title: 'Jueas Mersaz',
+        id: 7,
+        title: 'Acridotheres tristis',
+        is_header: false,
+        parent_id: 6,
+        parent_index: 8,
+        visible: true,
         dashboards: [
           {
-            id: 23,
-            title: 'Retas Mulopz',
+            id: 7,
+            title: 'Sus scrofa',
+            name: 'Sus scrofa',
+            divider_id: 7,
+            divider_index: 31,
+            visible: true,
+          },
+        ],
+        children: [
+          {
+            id: 9,
+            title: 'Sagittarius Serpentarius',
+            is_header: false,
+            parent_id: 7,
+            parent_index: 9,
+            visible: true,
+            dashboards: [
+              {
+                id: 9,
+                title: 'Paradoxurus hermaphroditus',
+                name: 'Paradoxurus hermaphroditus',
+                divider_id: 9,
+                divider_index: 3,
+                visible: true,
+              },
+            ],
           },
         ],
       },
+      {
+        id: 8,
+        title: 'Phalacrocorax niger',
+        is_header: false,
+        parent_id: 6,
+        parent_index: 9,
+        visible: true,
+        dashboards: [
+          {
+            id: 8,
+            title: 'Vulpes cinereoargenteus',
+            name: 'Vulpes cinereoargenteus',
+            divider_id: 8,
+            divider_index: 51,
+            visible: true,
+          },
+        ],
+        children: [
+          {
+            id: 10,
+            title: 'Macropus fuliginosus',
+            is_header: false,
+            parent_id: 8,
+            parent_index: 10,
+            visible: true,
+            dashboards: [
+              {
+                id: 10,
+                title: 'Otaria flavescens',
+                name: 'Otaria flavescens',
+                divider_id: 10,
+                divider_index: 12,
+                visible: true,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 18,
+        title: 'asda',
+        is_header: false,
+        parent_id: 6,
+        parent_index: 1,
+        visible: false,
+        dashboards: [],
+        children: [],
+      },
     ],
+  },
+  {
+    id: 11,
+    title: 'dashboard',
+    is_header: true,
+    parent_id: null,
+    parent_index: 10,
+    visible: false,
+    dashboards: [],
+    children: [
+      {
+        id: 12,
+        title: 'cat 1',
+        is_header: false,
+        parent_id: 11,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 11,
+            title: 'pagina 1',
+            name: 'pagina 1',
+            divider_id: 12,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: 'dash',
+    is_header: true,
+    parent_id: null,
+    parent_index: 9,
+    visible: false,
+    dashboards: [],
+    children: [
+      {
+        id: 14,
+        title: 'cat',
+        is_header: false,
+        parent_id: 13,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 12,
+            title: 'pagina',
+            name: 'pagina',
+            divider_id: 14,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 15,
+    title: 'dashboard',
+    is_header: true,
+    parent_id: null,
+    parent_index: 8,
+    visible: false,
+    dashboards: [],
+    children: [
+      {
+        id: 16,
+        title: 'cat1',
+        is_header: false,
+        parent_id: 15,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 13,
+            title: 'pagina',
+            name: 'pagina',
+            divider_id: 16,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 17,
+    title: 'asda',
+    is_header: true,
+    parent_id: null,
+    parent_index: 7,
+    visible: false,
+    dashboards: [],
+    children: [],
+  },
+  {
+    id: 19,
+    title: 'dash',
+    is_header: true,
+    parent_id: null,
+    parent_index: 6,
+    visible: false,
+    dashboards: [],
+    children: [
+      {
+        id: 20,
+        title: 'cat1',
+        is_header: false,
+        parent_id: 19,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 14,
+            title: 'pag',
+            name: 'pag',
+            divider_id: 20,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 21,
+    title: 'dash',
+    is_header: true,
+    parent_id: null,
+    parent_index: 5,
+    visible: true,
+    dashboards: [],
+    children: [
+      {
+        id: 22,
+        title: 'cat',
+        is_header: false,
+        parent_id: 21,
+        parent_index: 2,
+        visible: true,
+        dashboards: [
+          {
+            id: 15,
+            title: 'pagina',
+            name: 'pagina',
+            divider_id: 22,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+      {
+        id: 23,
+        title: 'New Cat',
+        is_header: false,
+        parent_id: 21,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 16,
+            title: 'New Pagina',
+            name: 'New Pagina',
+            divider_id: 23,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 24,
+    title: 'New Dashboard',
+    is_header: true,
+    parent_id: null,
+    parent_index: 4,
+    visible: true,
+    dashboards: [],
+    children: [
+      {
+        id: 25,
+        title: 'First Cat',
+        is_header: false,
+        parent_id: 24,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 17,
+            title: 'Frist Pagina',
+            name: 'Frist Pagina',
+            divider_id: 25,
+            divider_index: 1,
+            visible: true,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 26,
+    title: 'New Dashboard',
+    is_header: true,
+    parent_id: null,
+    parent_index: 3,
+    visible: true,
+    dashboards: [],
+    children: [],
+  },
+  {
+    id: 28,
+    title: 'dashboard',
+    is_header: true,
+    parent_id: null,
+    parent_index: 2,
+    visible: true,
+    dashboards: [],
+    children: [
+      {
+        id: 29,
+        title: 'cat1',
+        is_header: false,
+        parent_id: 28,
+        parent_index: 1,
+        visible: true,
+        dashboards: [
+          {
+            id: 19,
+            title: 'pagina',
+            name: 'pagina',
+            divider_id: 29,
+            divider_index: 1,
+            visible: true,
+          },
+          {
+            id: 20,
+            title: 'new dash',
+            name: 'new dash',
+            divider_id: 29,
+            divider_index: 2,
+            visible: false,
+          },
+        ],
+        children: [],
+      },
+    ],
+  },
+  {
+    id: 30,
+    title: 'Dashv2',
+    is_header: true,
+    parent_id: null,
+    parent_index: 1,
+    visible: true,
+    dashboards: [],
+    children: [],
   },
 ];
 
@@ -290,25 +651,24 @@ export function App({
       onDragCancel={handleDragCancel}
     >
       <SortableContext items={sortedIds} strategy={verticalListSortingStrategy}>
-        {flattenedItems.map(({ id, children, collapsed, depth }) => (
+        {flattenedItems?.map(({ id, children, collapsed, depth, title }) => (
           <SortableTreeItem
-            key={id}
+            key={id + title}
             id={id}
-            value={id}
+            value={title ?? ''}
             depth={id === activeId && projected ? projected.depth : depth}
             indentationWidth={indentationWidth}
             indicator={indicator}
-            collapsed={Boolean(collapsed && children.length)}
+            collapsed={Boolean(collapsed && children?.length)}
             onCollapse={
-              /*  children.length
+              children?.length
                 ? () => {
                     handleCollapse(id);
                   }
-                : undefined */ console.log(
+                : undefined /* console.log(
                 'Just removed it to see the UI of it, cuz it throws error'
-              )
+              ) */
             }
-            onRemove={removable ? () => handleRemove(id) : undefined}
           />
         ))}
         {createPortal(
@@ -322,7 +682,7 @@ export function App({
                 depth={activeItem.depth}
                 clone
                 childCount={getChildCount(items, activeId) + 1}
-                value={activeId.toString()}
+                value={activeItem.title ?? 'Dragging...'}
                 indentationWidth={indentationWidth}
               />
             ) : null}

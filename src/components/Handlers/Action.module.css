@@ -22,20 +22,20 @@
     fill: #6f7b88;
   }
 }
-.Action:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0), 0 0px 0px 2px #4c9ffe;
-}
-svg {
+.Action svg {
   flex: 0 0 auto;
   margin: auto;
   height: 100%;
   overflow: visible;
   fill: #919eab;
 }
-:active {
+.Action:active {
   background-color: var(--background, rgba(0, 0, 0, 0.05));
 }
-:active svg {
+.Action:active svg {
   fill: var(--fill, #788491);
+}
+.Action:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0), 0 0px 0px 2px #4c9ffe;
 }
